@@ -16,7 +16,7 @@ import me.CAPS123987.smallspace.*;
 public class Items {
 	public static final ItemGroup smallSpace = new ItemGroup(new NamespacedKey(SmallSpace.getInstance(),
 	        "Small_Space"),
-	        new CustomItemStack(Material.TUFF, "&4Small_Space")
+	        new CustomItemStack(Material.TUFF, "&aSmall Space")
 	    );
 	public static final SlimefunItemStack TEST_ITEM = new SlimefunItemStack("TEST_ITEM",
 	        Material.DIAMOND_BLOCK,
