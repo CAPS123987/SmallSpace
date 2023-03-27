@@ -23,6 +23,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.CAPS123987.*;
 import me.CAPS123987.dimension.SmallSpaceDim;
+import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.items.Items;
 
 
@@ -42,10 +43,12 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         SmallSpaceDim dimension = new SmallSpaceDim();
         dimension.createWorld("SmallSpace");
         
+       
         
-        SlimefunItem sfItem = new SlimefunItem(Items.smallSpace, Items.TEST_ITEM, 
-        		RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_TEST_ITEM);
-        sfItem.register(this);
+        new SizedBlock(1,Items.SIZED_BLOCK1,Items.recipe_TEST_ITEM).register(this);
+        new SizedBlock(2,Items.SIZED_BLOCK2,Items.recipe_TEST_ITEM).register(this);
+        new SizedBlock(3,Items.SIZED_BLOCK3,Items.recipe_TEST_ITEM).register(this);
+        new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_TEST_ITEM).register(this);
         
         
         
@@ -92,7 +95,8 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 	
 				this.getLogger().info(e.toString());
 			};
-			for(int i = 1; i != 5;i++) {
+
+			for(int i = 0; i != 5;i++) {
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--RESTART-THE-SERVER-FOR-PROPER-WORKING-OF-SMALLSPACE-PLUGIN--");
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");

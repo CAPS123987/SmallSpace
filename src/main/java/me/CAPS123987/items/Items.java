@@ -18,9 +18,24 @@ public class Items {
 	        "Small_Space"),
 	        new CustomItemStack(Material.TUFF, "&aSmall Space")
 	    );
-	public static final SlimefunItemStack TEST_ITEM = new SlimefunItemStack("TEST_ITEM",
+	public static final SlimefunItemStack SIZED_BLOCK1 = new SlimefunItemStack("SIZED_BLOCK1",
 	        Material.DIAMOND_BLOCK,
-	        "TEST_ITEM",
+	        "SIZED_BLOCK1",
+	        ""
+	    );
+	public static final SlimefunItemStack SIZED_BLOCK2 = new SlimefunItemStack("SIZED_BLOCK2",
+	        Material.DIAMOND_BLOCK,
+	        "SIZED_BLOCK2",
+	        ""
+	    );
+	public static final SlimefunItemStack SIZED_BLOCK3 = new SlimefunItemStack("SIZED_BLOCK3",
+	        Material.DIAMOND_BLOCK,
+	        "SIZED_BLOCK3",
+	        ""
+	    );
+	public static final SlimefunItemStack SIZED_BLOCK4 = new SlimefunItemStack("SIZED_BLOCK4",
+	        Material.DIAMOND_BLOCK,
+	        "SIZED_BLOCK4",
 	        ""
 	    );
 	public static final ItemStack[] recipe_TEST_ITEM= {

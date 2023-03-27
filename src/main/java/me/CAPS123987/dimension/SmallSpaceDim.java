@@ -23,8 +23,8 @@ public class SmallSpaceDim extends ChunkGenerator{
 	@Override
     public ChunkData generateChunkData(World world, Random random, int chunkX, int chunkZ, BiomeGrid biome) {
         ChunkData chunk = createChunkData(world);
-        chunk.setRegion(0, -64, 0, 16, -64, 16, Material.BEDROCK);
-       	chunk.setRegion(0, 319, 0, 16, 319, 16, Material.BEDROCK);
+        chunk.setRegion(0, -64, 0, 16, -63, 16, Material.BEDROCK);
+       	chunk.setRegion(0, 318, 0, 16, 319, 16, Material.BEDROCK);
         chunk.setRegion(0, -63, 0, 16, 318, 16, Material.STONE);
 
        	
