@@ -2,16 +2,16 @@
 name: SlimefunAddon
 
 ## CHANGE this to your username.
-author: CHANGEME
+author: CAPS123987
 
 ## CHANGE this to a meaninful but short description of your plugin.
-description: A generic Slimefun4-Addon
+description: A Slimefun4-Addon called SmallSpace
 
 ## CHANGE this to the path of the class that extends JavaPlugin.
-main: me.CHANGEME.slimefunaddon.ExampleAddon
+main: me.CAPS123987.smallspace.SmallSpace
 
 ## You can change this to link to your website or repository. You can also remove this line if you want to.
-website: https://github.com/Slimefun/Addon-Template
+website: https://github.com/CAPS123987/SmallSpace
 
 ## This value is automatically replaced by the version specified in your pom.xml file.
 ## Do not change this.
