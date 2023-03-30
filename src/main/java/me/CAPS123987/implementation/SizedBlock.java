@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -24,12 +25,16 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.multiblocks.EnhancedCraftingTable;
+import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.items.Items;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import net.md_5.bungee.api.chat.hover.content.Item;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import org.bukkit.event.player.PlayerEvent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 
 public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements EnergyNetComponent{
 	private final int Tier;
@@ -38,6 +43,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				recipe);
 		addItemHandler(BlockPlaceHandler());
 		addItemHandler(BlockBreakHandler());
+		addItemHandler(BlockUseHandler());
 		this.Tier=i;
 	}
 
@@ -54,8 +60,14 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 	}
 	
 	
-	public PlayerRightClickEvent PlayerRightClickEvent() {
-		return new PlayerRightClickEvent(null) {
+	public BlockUseHandler BlockUseHandler() {
+		return new BlockUseHandler() {
+
+			@Override
+			public void onRightClick(PlayerRightClickEvent e) {
+				   
+				Bukkit.broadcastMessage(BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "name"));
+			}
 
 			
 		};
@@ -70,14 +82,16 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				Block b = e.getBlock();
 				String name = BlockStorage.getLocationInfo(b.getLocation(), "name");
 				if(name == "null") return;
+				ItemStack item2 =SizedBlock.this.getItem().clone();
 				e.setDropItems(false);
 				
 				List<String> lore = new ArrayList<String>();
 				lore.add(name);
-				item.getItemMeta().setLore(lore);;
+				ItemMeta im=item2.getItemMeta();
+				im.setLore(lore);
+				item2.setItemMeta(im);
 				
-				
-				e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), item);
+				e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), item2);
 				// TODO Auto-generated method stub
 				
 			}
@@ -122,6 +136,9 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 	
 	public int getTier() {
 		return Tier;
+	}
+	public Location getLoc(long id) {
+		return new Location(Bukkit.getWorld("SmallSpace"),1.0,1.0,1.0);
 	}
 
 	

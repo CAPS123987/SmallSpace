@@ -3,6 +3,7 @@ package me.CAPS123987.dimension;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -31,4 +32,5 @@ public class SmallSpaceDim extends ChunkGenerator{
         
         return chunk;
     }
+	
 }

@@ -76,7 +76,7 @@ EnergyNetComponent{
         		List<String> lore = new ArrayList<String>();
         		if(!meta.getLore().get(0).contains("Put to Block Assigner")) {return;}
         		
-        		int max = cfg.getInt("max");
+        		long max = cfg.getLong("max");
         		lore.add(String.valueOf(max));
         		cfg.set("max", max+1);
         		SmallSpace.instance.saveConfig();

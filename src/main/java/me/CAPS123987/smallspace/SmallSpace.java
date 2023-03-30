@@ -84,8 +84,8 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         return instance;
     }
     
-    public int getMax() {
-    	return cfg.getConfiguration().getInt("max");
+    public long getMax() {
+    	return cfg.getConfiguration().getLong("max");
     }
     /*
      * set bukkit.yml
