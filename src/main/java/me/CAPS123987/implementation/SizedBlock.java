@@ -1,12 +1,19 @@
 package me.CAPS123987.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.api.events.BlockPlacerPlaceEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemHandler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -21,6 +28,8 @@ import me.CAPS123987.items.Items;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import org.bukkit.event.player.PlayerEvent;
 
 public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements EnergyNetComponent{
 	private final int Tier;
@@ -28,6 +37,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 		super(Items.smallSpace, item, RecipeType.ENHANCED_CRAFTING_TABLE,
 				recipe);
 		addItemHandler(BlockPlaceHandler());
+		addItemHandler(BlockBreakHandler());
 		this.Tier=i;
 	}
 
@@ -43,13 +53,37 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 		return 2048;
 	}
 	
+	
+	public PlayerRightClickEvent PlayerRightClickEvent() {
+		return new PlayerRightClickEvent(null) {
+
+			
+		};
+	}
 	//EnhancedCraftingTable cr = EnhancedCraftingTable.craft();
 	
-	public void onBlockPlacerPlace(BlockPlacerPlaceEvent e) {
-		Bukkit.broadcastMessage("placed");
-		BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
+	public BlockBreakHandler BlockBreakHandler() {
+		return new BlockBreakHandler(false, false) {
+
+			@Override
+			public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+				Block b = e.getBlock();
+				String name = BlockStorage.getLocationInfo(b.getLocation(), "name");
+				if(name == "null") return;
+				e.setDropItems(false);
+				
+				List<String> lore = new ArrayList<String>();
+				lore.add(name);
+				item.getItemMeta().setLore(lore);;
+				
+				
+				e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), item);
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 	}
-	
 	
 	
 	public BlockPlaceHandler BlockPlaceHandler() {
@@ -59,6 +93,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 			public void onPlayerPlace(BlockPlaceEvent e) {
 				// TODO Auto-generated method stub
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
+				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");return;}
+				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0)) ;
 			}};
 	}
 	

@@ -21,7 +21,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import me.CAPS123987.*;
+
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.items.Items;

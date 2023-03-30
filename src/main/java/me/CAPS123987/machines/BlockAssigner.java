@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -44,9 +45,9 @@ EnergyNetComponent{
     private final int[] outputBorder = {14, 15, 16, 17, 23, 26, 32, 33, 34, 35};
     private static final int statusSlot = 22;
     private static final int bar = 13;
-    private static final List<String> emptyList= new ArrayList<String>();
-    SmallSpace smallspace = new SmallSpace();
-    Config cfg = new Config();
+    FileConfiguration cfg = SmallSpace.instance.getConfig();
+    //Config cfg = new Config();
+    
     
 	public BlockAssigner() {
 		super(Items.smallSpace, Items.BLOCK_ASSIGNER, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_TEST_ITEM);
@@ -69,12 +70,16 @@ EnergyNetComponent{
         			return;
         		}
         		if(sfitem instanceof SizedBlock) {}else {return;}
+        		if(1<menu.getItemInSlot(20).getAmount()) {return;}
+        		
         		ItemMeta meta = menu.getItemInSlot(20).getItemMeta();
         		List<String> lore = new ArrayList<String>();
         		if(!meta.getLore().get(0).contains("Put to Block Assigner")) {return;}
         		
-        		
-        		lore.add("t");
+        		int max = cfg.getInt("max");
+        		lore.add(String.valueOf(max));
+        		cfg.set("max", max+1);
+        		SmallSpace.instance.saveConfig();
         		
         		
         		meta.setLore(lore);
