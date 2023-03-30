@@ -25,13 +25,15 @@ import me.CAPS123987.*;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.items.Items;
+import me.CAPS123987.machines.BlockAssigner;
 
 
 public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 	public static SmallSpace instance;
+	Config cfg = new Config(this);
     @Override
     public void onEnable() {
-    	Config cfg = new Config(this);
+    	
         if (cfg.getBoolean("options.auto-update")) {
             // You could start an Auto-Updater for example
         }
@@ -49,10 +51,12 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         new SizedBlock(2,Items.SIZED_BLOCK2,Items.recipe_TEST_ITEM).register(this);
         new SizedBlock(3,Items.SIZED_BLOCK3,Items.recipe_TEST_ITEM).register(this);
         new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_TEST_ITEM).register(this);
-        
+        new BlockAssigner().register(this);
         
         
     }
+    
+
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         return new SmallSpaceDim();
@@ -78,6 +82,10 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     }
     public static SmallSpace getInstance() {
         return instance;
+    }
+    
+    public int getMax() {
+    	return cfg.getConfiguration().getInt("max");
     }
     /*
      * set bukkit.yml
