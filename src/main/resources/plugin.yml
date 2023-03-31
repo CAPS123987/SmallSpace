@@ -23,3 +23,11 @@ api-version: 1.14
 ## This is required and marks Slimefun as a plugin dependency.
 depend:
 - Slimefun
+
+permissions:
+  SmallSpace.admin:
+     description: Allows you to use SmallSpace admin commands
+commands:
+  SmallSpace:
+     description: SmallSpace Command
+     usage: /<command>

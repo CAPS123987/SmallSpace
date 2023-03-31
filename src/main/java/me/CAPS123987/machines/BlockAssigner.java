@@ -81,6 +81,9 @@ EnergyNetComponent{
         		cfg.set("max", max+1);
         		SmallSpace.instance.saveConfig();
         		
+
+        		//Calculator.setRegi(Calculator.getLoc(String.valueOf(max)),12.0);
+
         		
         		meta.setLore(lore);
         		menu.getItemInSlot(20).setItemMeta(meta);

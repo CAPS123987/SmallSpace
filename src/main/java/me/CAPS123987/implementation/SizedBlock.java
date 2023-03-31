@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -27,9 +29,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
 import io.github.thebusybiscuit.slimefun4.implementation.items.multiblocks.EnhancedCraftingTable;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.items.Items;
+import me.CAPS123987.smallspace.Calculator;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import org.bukkit.event.player.PlayerEvent;
@@ -65,14 +69,66 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 
 			@Override
 			public void onRightClick(PlayerRightClickEvent e) {
-				   
-				Bukkit.broadcastMessage(BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "name"));
+				
+				
+				Location loc = Calculator.getLoc(BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "name"));
+				String srt = BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "Tier");
+				int value = Integer.parseInt(srt.replaceAll("[^0-9]", ""));
+				World world = Bukkit.getWorld("SmallSpace");
+				Location newloc = new Location(world,loc.getX()+0.5,loc.getY(),loc.getZ()+0.5);
+				Location newloc2 = new Location(world,loc.getX()+0.5,loc.getY()+1,loc.getZ()+0.5);
+				
+				if(e.getPlayer().isSneaking()) {
+					if(loc.getBlock().getType() == Material.BEDROCK) {
+						e.getPlayer().sendMessage(ChatColor.RED+"Your space was never initialized try right click");
+						return;
+					}
+					if(loc.getBlock().getType() == Material.BARRIER) {
+						e.getPlayer().sendMessage(ChatColor.DARK_RED+"Sorry your space is disabled");
+						return;
+					}
+					
+					newloc2.getBlock().setType(Material.AIR);
+					e.getPlayer().sendMessage("Blocks were removed");
+				}else {
+					if(loc.getBlock().getType() == Material.BEDROCK) {
+						switch(value) {
+						case 1:
+							Calculator.setRegi(loc,3.0);
+							break;
+						case 2:
+							Calculator.setRegi(loc,6.0);
+							break;
+						case 3:
+							Calculator.setRegi(loc,9.0);
+							break;
+						case 4:
+							Calculator.setRegi(loc,12.0);
+							break;
+						default:
+							break;
+						}
+						
+					}
+					
+					if(newloc.getBlock().getType()==Material.BARRIER) {
+						e.getPlayer().sendMessage(ChatColor.DARK_RED+"Sorry your space is disabled");
+						return;
+					}
+					if(newloc2.getBlock().getType()==Material.AIR) {
+						e.getPlayer().teleport(newloc);
+					}else {
+						e.getPlayer().sendMessage(ChatColor.RED+"Spawn Location in your space is obstructed! To remove Blocks press Shift and right click this again");
+						return;
+					}
+					
+				}
 			}
 
 			
 		};
 	}
-	//EnhancedCraftingTable cr = EnhancedCraftingTable.craft();
+
 	
 	public BlockBreakHandler BlockBreakHandler() {
 		return new BlockBreakHandler(false, false) {
@@ -109,7 +165,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
 				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");return;}
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0)) ;
-			}};
+				}
+			};
 	}
 	
 	
@@ -137,9 +194,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 	public int getTier() {
 		return Tier;
 	}
-	public Location getLoc(long id) {
-		return new Location(Bukkit.getWorld("SmallSpace"),1.0,1.0,1.0);
-	}
+	
 
 	
 }
