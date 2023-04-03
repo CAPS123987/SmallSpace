@@ -17,6 +17,7 @@ public class TabC implements TabCompleter{
     			options.add("tptoId");
     			options.add("blockId");
     			options.add("unblockId");
+    			options.add("teleportRemove");
     			return options;
     	
     	}

@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,9 +30,11 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
+import me.CAPS123987.implementation.Teleporterss;
 import me.CAPS123987.items.Items;
 import me.CAPS123987.machines.BlockAssigner;
 import me.CAPS123987.tabCompleater.*;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 
 public class SmallSpace extends JavaPlugin implements SlimefunAddon {
@@ -58,6 +61,7 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         new SizedBlock(2,Items.SIZED_BLOCK2,Items.recipe_TEST_ITEM).register(this);
         new SizedBlock(3,Items.SIZED_BLOCK3,Items.recipe_TEST_ITEM).register(this);
         new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_TEST_ITEM).register(this);
+        new Teleporterss().register(this);
         new BlockAssigner().register(this);
         
         
@@ -146,6 +150,7 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     			int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
     			}catch(Exception e) {
     			p.sendMessage("Please enter Id of space");
+    			return true;
     		}
     		String id1 = args[1];
     		int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
@@ -164,6 +169,26 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     		String id2 = args[1];
     		int value2 = Integer.parseInt(id2.replaceAll("[^0-9]", ""));
     		Calculator.getLoc(id2).getBlock().setType(Material.AIR);
+    		
+    		break;
+    	case "teleportRemove":
+    		Player pp;
+    		try {
+    			 pp = (Player) p;
+    		}catch(Exception e) {
+    			p.sendMessage("You must be Player to use this command");
+    			return true;
+    		}
+    		Block b =pp.getTargetBlockExact(20);
+    		if(!BlockStorage.hasBlockInfo(b)) {
+    			p.sendMessage("this block doesn't have BlockStorage data");
+    			return true;
+    		}
+    		if(!BlockStorage.getLocationInfo(b.getLocation(),"id").equals("TELEPORT")) {
+    			p.sendMessage("this block is not teleporter");
+    			return true;
+    		}
+    		BlockStorage.clearBlockInfo(b);
     		
     		break;
     	default:

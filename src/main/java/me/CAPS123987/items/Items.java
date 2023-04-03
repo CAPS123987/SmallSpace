@@ -38,6 +38,11 @@ public class Items {
 	        "SIZED_BLOCK4",
 	        "&l§4Put to Block Assigner"
 	    );
+	public static final SlimefunItemStack TELEPORT = new SlimefunItemStack("TELEPORT",
+	        Material.GOLD_BLOCK,
+	        "TELEPORT",
+	        ""
+	    );
 	public static final SlimefunItemStack BLOCK_ASSIGNER = new SlimefunItemStack("BLOCK_ASSIGNER",
 	        Material.DIAMOND_BLOCK,
 	        "BLOCK_ASSIGNER",

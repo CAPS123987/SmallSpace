@@ -77,6 +77,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				World world = Bukkit.getWorld("SmallSpace");
 				Location newloc = new Location(world,loc.getX()+0.5,loc.getY(),loc.getZ()+0.5);
 				Location newloc2 = new Location(world,loc.getX()+0.5,loc.getY()+1,loc.getZ()+0.5);
+				Location newloc3 = new Location(world,loc.getX()+0.5,loc.getY()-1,loc.getZ()+0.5);
 				
 				if(e.getPlayer().isSneaking()) {
 					if(loc.getBlock().getType() == Material.BEDROCK) {
@@ -108,6 +109,14 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 						default:
 							break;
 						}
+						world.getBlockAt(newloc3).setType(Material.GOLD_BLOCK);
+						
+						BlockStorage.store(newloc3.getBlock(), "TELEPORT");
+						
+						BlockStorage.addBlockInfo(newloc3.getBlock(), "tpX",String.valueOf(e.getClickedBlock().get().getLocation().getX()));
+						BlockStorage.addBlockInfo(newloc3.getBlock(), "tpY", String.valueOf(e.getClickedBlock().get().getLocation().getY()));
+						BlockStorage.addBlockInfo(newloc3.getBlock(), "tpZ", String.valueOf(e.getClickedBlock().get().getLocation().getZ()));
+						BlockStorage.addBlockInfo(newloc3.getBlock(), "world", String.valueOf(e.getClickedBlock().get().getLocation().getWorld().getName()));
 						
 					}
 					
@@ -163,8 +172,11 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 			public void onPlayerPlace(BlockPlaceEvent e) {
 				// TODO Auto-generated method stub
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
-				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");return;}
-				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0)) ;
+				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {
+					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");
+					return;
+					}
+					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0)) ;
 				}
 			};
 	}
