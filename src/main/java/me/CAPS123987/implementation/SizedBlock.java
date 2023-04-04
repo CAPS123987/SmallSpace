@@ -42,6 +42,7 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 
 public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements EnergyNetComponent{
 	private final int Tier;
+	private int decrement = 0;
 	public SizedBlock(int i, SlimefunItemStack item, ItemStack[] recipe) {
 		super(Items.smallSpace, item, RecipeType.ENHANCED_CRAFTING_TABLE,
 				recipe);
@@ -75,6 +76,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				String srt = BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "Tier");
 				int value = Integer.parseInt(srt.replaceAll("[^0-9]", ""));
 				World world = Bukkit.getWorld("SmallSpace");
+				String owner = BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "owner");
 				Location newloc = new Location(world,loc.getX()+0.5,loc.getY(),loc.getZ()+0.5);
 				Location newloc2 = new Location(world,loc.getX()+0.5,loc.getY()+1,loc.getZ()+0.5);
 				Location newloc3 = new Location(world,loc.getX()+0.5,loc.getY()-1,loc.getZ()+0.5);
@@ -125,7 +127,14 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 						return;
 					}
 					if(newloc2.getBlock().getType()==Material.AIR) {
-						e.getPlayer().teleport(newloc);
+						//if player is owner or admin
+						if(e.getPlayer().getName().equals(owner)|| e.getPlayer().hasPermission("SmallSpace.admin")) {
+							
+							e.getPlayer().teleport(newloc);
+						}else {
+							e.getPlayer().sendMessage(ChatColor.RED+"You are not the owner of this space!");
+						}
+						
 					}else {
 						e.getPlayer().sendMessage(ChatColor.RED+"Spawn Location in your space is obstructed! To remove Blocks press Shift and right click this again");
 						return;
@@ -146,7 +155,26 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 			public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
 				Block b = e.getBlock();
 				String name = BlockStorage.getLocationInfo(b.getLocation(), "name");
-				if(name == "null") return;
+				String owner = BlockStorage.getLocationInfo(e.getBlock().getLocation(), "owner");
+				
+				if(name == "null") {
+					return;
+				}
+				
+				//if player is owner
+				
+				if(!e.getPlayer().getName().equals(owner)) {
+					//if player is admin
+					if(e.getPlayer().hasPermission("SmallSpace.admin")) {
+						
+					}else {
+						e.getPlayer().sendMessage(ChatColor.RED+"You are not the owner of this space!");
+						e.setCancelled(true);
+						return;
+					}
+				}
+				
+				//drop item with custom lore
 				ItemStack item2 =SizedBlock.this.getItem().clone();
 				e.setDropItems(false);
 				
@@ -157,7 +185,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				item2.setItemMeta(im);
 				
 				e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), item2);
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
@@ -176,7 +204,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");
 					return;
 					}
-					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0)) ;
+					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0));
+					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "owner", e.getPlayer().getName());
 				}
 			};
 	}
@@ -188,10 +217,27 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 		
 		return new BlockTicker() {
 	    	
+			@Override
+            // Fires first!! The method tick() fires after this
+            public void uniqueTick() {
+                
+				
+                if (decrement == 2) {
+                    decrement = 0;
+                    return;
+                }
+                decrement++;
+
+            }
 	        
 	        public void tick(Block b, SlimefunItem sf, Config data) {
-	        	if(getTier()*512<=getCharge(b.getLocation())) {
-	        		removeCharge(b.getLocation(), getTier()*512);
+	        	if (decrement != 0) {
+                    return;
+                }
+	        	
+	        	
+	        	if(getTier()*256<=getCharge(b.getLocation())) {
+	        		removeCharge(b.getLocation(), getTier()*256);
 	        	}
 	        }
 

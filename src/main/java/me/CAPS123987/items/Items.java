@@ -21,22 +21,26 @@ public class Items {
 	public static final SlimefunItemStack SIZED_BLOCK1 = new SlimefunItemStack("SIZED_BLOCK1",
 	        Material.DIAMOND_BLOCK,
 	        "SIZED_BLOCK1",
-	        "&l§4Put to Block Assigner"
+	        "&l§4Put to Block Assigner",
+	        LoreBuilder.powerPerSecond(256)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK2 = new SlimefunItemStack("SIZED_BLOCK2",
 	        Material.DIAMOND_BLOCK,
 	        "SIZED_BLOCK2",
-	        "&l§4Put to Block Assigner"
+	        "&l§4Put to Block Assigner",
+	        LoreBuilder.powerPerSecond(512)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK3 = new SlimefunItemStack("SIZED_BLOCK3",
 	        Material.DIAMOND_BLOCK,
 	        "SIZED_BLOCK3",
-	        "&l§4Put to Block Assigner"
+	        "&l§4Put to Block Assigner",
+	        LoreBuilder.powerPerSecond(768)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK4 = new SlimefunItemStack("SIZED_BLOCK4",
 	        Material.DIAMOND_BLOCK,
 	        "SIZED_BLOCK4",
-	        "&l§4Put to Block Assigner"
+	        "&l§4Put to Block Assigner",
+	        LoreBuilder.powerPerSecond(1024)
 	    );
 	public static final SlimefunItemStack TELEPORT = new SlimefunItemStack("TELEPORT",
 	        Material.GOLD_BLOCK,
