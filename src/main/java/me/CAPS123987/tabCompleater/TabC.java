@@ -18,8 +18,8 @@ public class TabC implements TabCompleter{
 		
 		Calculator calc = new Calculator();
 		List<String> options1 = new ArrayList<>();
-		options1.add("groupAdd");
-		options1.add("groupRemove");
+		options1.add("memberAdd");
+		options1.add("memberRemove");
 		
 		//only for admins
 		
@@ -34,19 +34,23 @@ public class TabC implements TabCompleter{
     			return options1;
     	
     	}
-    	if(args.length == 2 && !args[0].equals("groupAdd") && !args[0].equals("groupRemove")) {
+    	if(args.length == 2 && !args[0].equals("memberAdd") && !args[0].equals("memberRemove")) {
 			List<String> options = new ArrayList<>();
 			options.add("<ID>");
 			return options;
 		}
     	
-    	if(args.length == 2 &&  args[0].equals("groupRemove")) {
+    	if(args.length == 2 &&  args[0].equals("memberRemove")) {
 			
 	    	final Player pp = (Player) sender;
-	    	return calc.playersGet(BlockStorage.getLocationInfo(pp.getTargetBlockExact(20).getLocation(), "Players"));
+	    	try {
+	    		return calc.playersGet(BlockStorage.getLocationInfo(pp.getTargetBlockExact(20).getLocation(), "Players"));
+	    	}catch(Exception e) {
+	    		return null;
+	    	}
 		}
     	
-		if((args.length == 2 && args[0].equals("groupAdd"))){
+		if((args.length == 2 && args[0].equals("memberAdd"))){
 			List<Player> list = new ArrayList<>(Bukkit.getOnlinePlayers());
 			List<String> options = new ArrayList<>();
 	    	for(Player p : list) {

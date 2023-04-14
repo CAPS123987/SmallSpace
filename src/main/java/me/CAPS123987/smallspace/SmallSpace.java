@@ -217,13 +217,17 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 	    		
 	    		break;
 	    		
-		    	case "groupAdd":
-		    		groupAdd(p,args);
+		    	case "memberAdd":
+		    		if(1<args.length) {
+		    			groupAdd(p,args);
+		    		}
 		    		return true;
 		    		
 		    		
-		    	case "groupRemove":
-		    		groupRemove(p,args);
+		    	case "memberRemove":
+		    		if(1<args.length) {
+		    			groupRemove(p,args);
+		    		}
 		    		return true;
 	    	
 	    	default:
@@ -247,6 +251,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     public void notSeder(CommandSender p) {
     	p.sendMessage("You must by Player to use this command");
     }
+    
+    
+    
     public boolean groupAdd(CommandSender p, String[] args) {
     	
     	final Player pp = (Player) p;
@@ -262,21 +269,30 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 			return false;
 		}
 		
-		if(args[1].isEmpty()) {
+		if(!(BlockStorage.getLocationInfo(b.getLocation(),"owner").equals(pp.getName())) && !p.hasPermission("SmallSpace.admin")) {
+			pp.sendMessage("You are not owner of this block");
+			return false;
+		}
+		
+		List<String> info = Calculator.playersGet(BlockStorage.getLocationInfo(b.getLocation(), "Players"));
+		if(info.contains(args[1])) {
 			return false;
 		}
 		
 		String old = BlockStorage.getLocationInfo(b.getLocation(), "Players");
+		
 		if(old == null) {
 			BlockStorage.addBlockInfo(b, "Players",args[1]+";");
 		}else {
 			BlockStorage.addBlockInfo(b, "Players",old + args[1] + ";");
     	}
-		
+		pp.sendMessage("Player "+args[1]+" added");
 		return true;
 		
 		
     }
+    
+    
     public boolean groupRemove(CommandSender p, String[] args) {
     	
     	final Player pp = (Player) p;
@@ -292,23 +308,27 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 			return false;
 		}
 		
-		if(args[1].isEmpty()) {
+		if(!(BlockStorage.getLocationInfo(b.getLocation(),"owner").equals(pp.getName())) && !p.hasPermission("SmallSpace.admin")) {
+			pp.sendMessage("You are not owner of this block");
 			return false;
 		}
 		
+		String arg = args[1];
+		
 		List<String> info = Calculator.playersGet(BlockStorage.getLocationInfo(b.getLocation(), "Players"));
+		
 		if(info.contains(args[1])) {
-			for(int i = 0; info.size() != i; i++) {
-				if(info.get(i).equals(args[1])) {
-					info.remove(i);
-				}
-			}
+				
+			if(info.contains(arg)) {
+				info.remove(info.indexOf(arg));
+			}	
 			String text = "";
-			for(int i = 0; info.size() != i; i++) {
-				text = text + info.get(i) + ";";
+			for(String s : info) {
+				text = text + s + ";";
 				
 			}
 			BlockStorage.addBlockInfo(b, "Players", text);
+			pp.sendMessage("Player "+args[1]+" removed");
 			
 			return true;
 		}else {

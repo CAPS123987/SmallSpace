@@ -79,7 +79,14 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				String owner = BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "owner");
 				Location newloc = new Location(world,loc.getX()+0.5,loc.getY(),loc.getZ()+0.5);
 				Location newloc2 = new Location(world,loc.getX()+0.5,loc.getY()+1,loc.getZ()+0.5);
+				Location newloc22 = new Location(world,loc.getX()+0.5,loc.getY()+2,loc.getZ()+0.5);
+				Location newloc222 = new Location(world,loc.getX()+0.5,loc.getY()+3,loc.getZ()+0.5);
 				Location newloc3 = new Location(world,loc.getX()+0.5,loc.getY()-1,loc.getZ()+0.5);
+				
+				if(!(e.getPlayer().getName().equals(owner)|| e.getPlayer().hasPermission("SmallSpace.admin") || Calculator.playersGet(BlockStorage.getLocationInfo(e.getClickedBlock().get().getLocation(), "Players")).contains(e.getPlayer().getName()))) {
+					e.getPlayer().sendMessage(ChatColor.RED+"You are not the owner or member of this space!");
+					return;
+				}
 				
 				if(e.getPlayer().isSneaking()) {
 					if(loc.getBlock().getType() == Material.BEDROCK) {
@@ -92,6 +99,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 					}
 					
 					newloc2.getBlock().setType(Material.AIR);
+					newloc22.getBlock().setType(Material.AIR);
+					newloc222.getBlock().setType(Material.AIR);
 					e.getPlayer().sendMessage("Blocks were removed");
 				}else {
 					if(loc.getBlock().getType() == Material.BEDROCK) {
@@ -126,14 +135,10 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 						e.getPlayer().sendMessage(ChatColor.DARK_RED+"Sorry your space is disabled");
 						return;
 					}
-					if(newloc2.getBlock().getType()==Material.AIR) {
+					if(newloc2.getBlock().getType()==Material.AIR && newloc22.getBlock().getType()==Material.AIR&& newloc222.getBlock().getType()==Material.AIR) {
 						//if player is owner or admin
-						if(e.getPlayer().getName().equals(owner)|| e.getPlayer().hasPermission("SmallSpace.admin")) {
-							
-							e.getPlayer().teleport(newloc);
-						}else {
-							e.getPlayer().sendMessage(ChatColor.RED+"You are not the owner of this space!");
-						}
+						
+						e.getPlayer().teleport(newloc);
 						
 					}else {
 						e.getPlayer().sendMessage(ChatColor.RED+"Spawn Location in your space is obstructed! To remove Blocks press Shift and right click this again");
@@ -204,6 +209,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name","null");
 					return;
 					}
+					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Players", "");
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0));
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "owner", e.getPlayer().getName());
 				}
