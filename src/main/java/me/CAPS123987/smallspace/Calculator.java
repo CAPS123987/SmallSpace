@@ -1,5 +1,8 @@
 package me.CAPS123987.smallspace;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -49,6 +52,24 @@ public class Calculator {
 				}
 			}
 		}
+		
+	}
+	
+	public static List<String> playersGet(String s) {
+		List<String> options = new ArrayList<>();
+		
+		String text = "";
+		for(int i = 0; s.length() != i; i++) {
+			
+			if(s.charAt(i) != ';') {
+				text = text+s.charAt(i);
+			}else {
+				options.add(text);
+				text = "";
+			}
+			
+		}
+		return options;
 		
 	}
 }

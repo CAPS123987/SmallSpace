@@ -2,6 +2,7 @@ package me.CAPS123987.smallspace;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -95,9 +96,6 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         return instance;
     }
     
-    public long getMax() {
-    	return cfg.getConfiguration().getLong("max");
-    }
     /*
      * set bukkit.yml
      */
@@ -115,7 +113,7 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 				this.getLogger().info(e.toString());
 			};
 
-			for(int i = 0; i != 5;i++) {
+			for(int i = 0; i != 10;i++) {
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--RESTART-THE-SERVER-FOR-PROPER-WORKING-OF-SMALLSPACE-PLUGIN--");
 				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");
@@ -124,75 +122,112 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     }
     @Override
     public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
-    	if (!p.hasPermission("SmallSpace.admin")) {
-    		p.sendMessage(ChatColor.RED+"No permition");
-    		return false;
-    	}
+    	
+    	
+    	
+    	
+    	
+    	
     	switch(args[0]) {
-    	case "tptoId":
-    		try {
-    			String id = args[1];
-    			int value = Integer.parseInt(id.replaceAll("[^0-9]", ""));
-    			}catch(Exception e) {
-    			p.sendMessage("Please enter Id of space");
-    			return true;
-    		}
-    		String id = args[1];
-    		int value = Integer.parseInt(id.replaceAll("[^0-9]", ""));
-    		tryToTeleport(Calculator.getLoc(id),p);
-    		
-    		
-    		break;
-    	case "blockId":
-    		
-    		try {
-    			String id1 = args[1];
-    			int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
-    			}catch(Exception e) {
-    			p.sendMessage("Please enter Id of space");
-    			return true;
-    		}
-    		String id1 = args[1];
-    		int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
-    		Calculator.getLoc(id1).getBlock().setType(Material.BARRIER);
-    		
-    		break;
-    	case "unblockId":
-    		
-    		try {
-    			String id2 = args[1];
-    			int value2 = Integer.parseInt(id2.replaceAll("[^0-9]", ""));
-    			}catch(Exception e) {
-    			p.sendMessage("Please enter Id of space");
-    			return true;
-    		}
-    		String id2 = args[1];
-    		int value2 = Integer.parseInt(id2.replaceAll("[^0-9]", ""));
-    		Calculator.getLoc(id2).getBlock().setType(Material.AIR);
-    		
-    		break;
-    	case "teleportRemove":
-    		Player pp;
-    		try {
-    			 pp = (Player) p;
-    		}catch(Exception e) {
-    			p.sendMessage("You must be Player to use this command");
-    			return true;
-    		}
-    		Block b =pp.getTargetBlockExact(20);
-    		if(!BlockStorage.hasBlockInfo(b)) {
-    			p.sendMessage("this block doesn't have BlockStorage data");
-    			return true;
-    		}
-    		if(!BlockStorage.getLocationInfo(b.getLocation(),"id").equals("TELEPORT")) {
-    			p.sendMessage("this block is not teleporter");
-    			return true;
-    		}
-    		BlockStorage.clearBlockInfo(b);
-    		
-    		break;
-    	default:
-    		p.sendMessage("Unknown command");
+    	
+	    	case "tptoId":
+	    		if (!p.hasPermission("SmallSpace.admin")) {
+	        		p.sendMessage(ChatColor.RED+"No permition");
+	        		return false;
+	        	}
+	    		if(p instanceof Player) {
+		    		try {
+		    			String id = args[1];
+		    			int value = Integer.parseInt(id.replaceAll("[^0-9]", ""));
+		    			}catch(Exception e) {
+		    			p.sendMessage("Please enter Id of space");
+		    			return true;
+		    		}
+		    		String id = args[1];
+		    		int value = Integer.parseInt(id.replaceAll("[^0-9]", ""));
+		    		tryToTeleport(Calculator.getLoc(id),p);
+	    		}else {
+	    			notSeder(p);
+	    			return true;
+	    		}
+	    		
+	    		break;
+	    		
+	    		
+	    	case "blockId":
+	    		if (!p.hasPermission("SmallSpace.admin")) {
+	        		p.sendMessage(ChatColor.RED+"No permition");
+	        		return false;
+	        	}
+	    		try {
+	    			String id1 = args[1];
+	    			int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
+	    			}catch(Exception e) {
+	    			p.sendMessage("Please enter Id of space");
+	    			return true;
+	    		}
+	    		String id1 = args[1];
+	    		int value1 = Integer.parseInt(id1.replaceAll("[^0-9]", ""));
+	    		Calculator.getLoc(id1).getBlock().setType(Material.BARRIER);
+	    		
+	    		break;
+	    		
+	    		
+	    	case "unblockId":
+	    		if (!p.hasPermission("SmallSpace.admin")) {
+	        		p.sendMessage(ChatColor.RED+"No permition");
+	        		return false;
+	        	}
+	    		try {
+	    			String id2 = args[1];
+	    			int value2 = Integer.parseInt(id2.replaceAll("[^0-9]", ""));
+	    			}catch(Exception e) {
+	    			p.sendMessage("Please enter Id of space");
+	    			return true;
+	    		}
+	    		String id2 = args[1];
+	    		int value2 = Integer.parseInt(id2.replaceAll("[^0-9]", ""));
+	    		Calculator.getLoc(id2).getBlock().setType(Material.AIR);
+	    		
+	    		break;
+	    		
+	    		
+	    	case "teleportRemove":
+	    		if (!p.hasPermission("SmallSpace.admin")) {
+	        		p.sendMessage(ChatColor.RED+"No permition");
+	        		return false;
+	        	}
+	    		if(!(p instanceof Player)) {
+	    			notSeder(p);
+	    			return true;
+	    		}
+	    		
+	    		Player pp;
+	    		pp = (Player) p;
+	    		Block b =pp.getTargetBlockExact(20);
+	    		if(!BlockStorage.hasBlockInfo(b)) {
+	    			p.sendMessage("this block doesn't have BlockStorage data");
+	    			return true;
+	    		}
+	    		if(!BlockStorage.getLocationInfo(b.getLocation(),"id").equals("TELEPORT")) {
+	    			p.sendMessage("this block is not teleporter");
+	    			return true;
+	    		}
+	    		BlockStorage.clearBlockInfo(b);
+	    		
+	    		break;
+	    		
+		    	case "groupAdd":
+		    		groupAdd(p,args);
+		    		return true;
+		    		
+		    		
+		    	case "groupRemove":
+		    		groupRemove(p,args);
+		    		return true;
+	    	
+	    	default:
+	    		p.sendMessage("Unknown command");
     	}
     	
     	return true;
@@ -208,6 +243,81 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     	Player p2 = (Player) p;
     	p2.teleport(newloc2);
     	
+    }
+    public void notSeder(CommandSender p) {
+    	p.sendMessage("You must by Player to use this command");
+    }
+    public boolean groupAdd(CommandSender p, String[] args) {
+    	
+    	final Player pp = (Player) p;
+		Block b =pp.getTargetBlockExact(20);
+		if(!BlockStorage.hasBlockInfo(b)) {
+			p.sendMessage("this block doesn't have BlockStorage data");
+			return false;
+		}
+
+		SlimefunItem item = BlockStorage.check(b);
+		if (!(item instanceof SizedBlock)) {
+			p.sendMessage("this block is not SIZED BLOCK");
+			return false;
+		}
+		
+		if(args[1].isEmpty()) {
+			return false;
+		}
+		
+		String old = BlockStorage.getLocationInfo(b.getLocation(), "Players");
+		if(old == null) {
+			BlockStorage.addBlockInfo(b, "Players",args[1]+";");
+		}else {
+			BlockStorage.addBlockInfo(b, "Players",old + args[1] + ";");
+    	}
+		
+		return true;
+		
+		
+    }
+    public boolean groupRemove(CommandSender p, String[] args) {
+    	
+    	final Player pp = (Player) p;
+		Block b =pp.getTargetBlockExact(20);
+		if(!BlockStorage.hasBlockInfo(b)) {
+			p.sendMessage("this block doesn't have BlockStorage data");
+			return false;
+		}
+		
+		SlimefunItem item = BlockStorage.check(b);
+		if (!(item instanceof SizedBlock)) {
+			p.sendMessage("this block is not SIZED BLOCK");
+			return false;
+		}
+		
+		if(args[1].isEmpty()) {
+			return false;
+		}
+		
+		List<String> info = Calculator.playersGet(BlockStorage.getLocationInfo(b.getLocation(), "Players"));
+		if(info.contains(args[1])) {
+			for(int i = 0; info.size() != i; i++) {
+				if(info.get(i).equals(args[1])) {
+					info.remove(i);
+				}
+			}
+			String text = "";
+			for(int i = 0; info.size() != i; i++) {
+				text = text + info.get(i) + ";";
+				
+			}
+			BlockStorage.addBlockInfo(b, "Players", text);
+			
+			return true;
+		}else {
+			pp.sendMessage("Player "+args[1]+" isn't registered in this block");
+			return false;
+		}
+		
+		
+		
     }
 
 }
