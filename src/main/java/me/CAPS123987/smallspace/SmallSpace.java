@@ -57,12 +57,12 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         worldCreator.generator(new SmallSpaceDim());
         worldCreator.createWorld();
         
-       
+        new SlimefunItem(Items.smallSpace, Items.SPACE_STABILIZER, RecipeType.ENHANCED_CRAFTING_TABLE , Items.recipe_SPACE_STABILIZER).register(this);
         //this.getServer().getPluginManager().registerEvents(CommandListener.onCommand(null, null, getBugTrackerURL(), null),this);
-        new SizedBlock(1,Items.SIZED_BLOCK1,Items.recipe_TEST_ITEM).register(this);
-        new SizedBlock(2,Items.SIZED_BLOCK2,Items.recipe_TEST_ITEM).register(this);
-        new SizedBlock(3,Items.SIZED_BLOCK3,Items.recipe_TEST_ITEM).register(this);
-        new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_TEST_ITEM).register(this);
+        new SizedBlock(1,Items.SIZED_BLOCK1,Items.recipe_SIZED_BLOCK1).register(this);
+        new SizedBlock(2,Items.SIZED_BLOCK2,Items.recipe_SIZED_BLOCK2).register(this);
+        new SizedBlock(3,Items.SIZED_BLOCK3,Items.recipe_SIZED_BLOCK3).register(this);
+        new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_SIZED_BLOCK4).register(this);
         new Teleporterss().register(this);
         new BlockAssigner().register(this);
         
