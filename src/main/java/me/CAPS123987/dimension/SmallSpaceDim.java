@@ -15,7 +15,7 @@ public class SmallSpaceDim extends ChunkGenerator{
 	World newWorld;// = Bukkit.createWorld(new WorldCreator("SmallSpace"));
 	public void createWorld(String srt) {
 		newWorld = Bukkit.createWorld(new WorldCreator(srt));
-		//Bukkit.broadcastMessage(newWorld.toString()+"hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+		
 	}
 	public World getWorld() {
 		return newWorld;
