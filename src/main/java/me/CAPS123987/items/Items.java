@@ -19,25 +19,25 @@ public class Items {
 	        new CustomItemStack(Material.TUFF, "&aSmall Space")
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK1 = new SlimefunItemStack("SIZED_BLOCK1",
-	        Material.DIAMOND_BLOCK,
+			Material.DEEPSLATE_COAL_ORE,
 	        "&rSized Block &7(Tier 1 3x3)",
 	        "&l§4Put to Block Assigner",
 	        LoreBuilder.powerPerSecond(256)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK2 = new SlimefunItemStack("SIZED_BLOCK2",
-	        Material.DIAMOND_BLOCK,
+	        Material.DEEPSLATE_COAL_ORE,
 	        "&rSized Block &7(Tier 2 6x6)",
 	        "&l§4Put to Block Assigner",
 	        LoreBuilder.powerPerSecond(512)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK3 = new SlimefunItemStack("SIZED_BLOCK3",
-	        Material.DIAMOND_BLOCK,
+			Material.DEEPSLATE_COAL_ORE,
 	        "&rSized Block &7(Tier 3 9x9)",
 	        "&l§4Put to Block Assigner",
 	        LoreBuilder.powerPerSecond(768)
 	    );
 	public static final SlimefunItemStack SIZED_BLOCK4 = new SlimefunItemStack("SIZED_BLOCK4",
-	        Material.DIAMOND_BLOCK,
+			Material.DEEPSLATE_COAL_ORE,
 	        "&rSized Block &7(Tier 4 12x12)",
 	        "&l§4Put to Block Assigner",
 	        LoreBuilder.powerPerSecond(1024)
