@@ -59,7 +59,7 @@ public class Items {
 	
 	
 	public static final SlimefunItemStack SPACE_STABILIZER = new SlimefunItemStack("SPACE_STABILIZER",
-	        Material.DIAMOND_BLOCK,
+	        Material.BLACK_WOOL,
 	        "&rSpace Stabilizer",
 	        "&7Stabilizes space in block - main part",
 	        LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
