@@ -30,6 +30,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.implementation.Teleporterss;
@@ -46,7 +47,10 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     public void onEnable() {
     	
         if (cfg.getBoolean("options.auto-update")) {
-            // You could start an Auto-Updater for example
+        	
+        	GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, this.getFile(), "CAPS123987/SmallSpace/master");
+        	updater.start();
+        	
         }
     	
     	instance = this;
