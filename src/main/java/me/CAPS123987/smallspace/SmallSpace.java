@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -52,9 +53,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     	
     	getCommand("SmallSpace").setTabCompleter(new TabC());
         //setup dimension 
-        setGen();
-        SmallSpaceDim dimension = new SmallSpaceDim();
-        dimension.createWorld("SmallSpace");
+        WorldCreator worldCreator = new WorldCreator("SmallSpace");
+        worldCreator.generator(new SmallSpaceDim());
+        worldCreator.createWorld();
         
        
         //this.getServer().getPluginManager().registerEvents(CommandListener.onCommand(null, null, getBugTrackerURL(), null),this);
@@ -99,27 +100,6 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     /*
      * set bukkit.yml
      */
-    public void setGen() {
-    	
-    	FileConfiguration bukkit = YamlConfiguration.loadConfiguration( new File(getServer().getWorldContainer(), "bukkit.yml"));
-        
-    	if(!bukkit.contains("worlds.SmallSpace.generator")){
-	        bukkit.set("worlds.SmallSpace.generator", "SmallSpace");
-	
-	        try {
-				bukkit.save("bukkit.yml");
-			} catch (IOException e) {
-	
-				this.getLogger().info(e.toString());
-			};
-
-			for(int i = 0; i != 10;i++) {
-				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");
-				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--RESTART-THE-SERVER-FOR-PROPER-WORKING-OF-SMALLSPACE-PLUGIN--");
-				this.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "--------------------------------------------------------------");
-			}
-	    }
-    }
     @Override
     public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
     	
@@ -219,14 +199,22 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 	    		
 		    	case "memberAdd":
 		    		if(1<args.length) {
-		    			groupAdd(p,args);
+		    			if(p instanceof Player) {
+		    				groupAdd(p,args);
+		    			}else {
+		    				notSeder(p);
+		    			}
 		    		}
 		    		return true;
 		    		
 		    		
 		    	case "memberRemove":
 		    		if(1<args.length) {
-		    			groupRemove(p,args);
+		    			if(p instanceof Player) {
+		    				groupRemove(p,args);
+		    			}else {
+		    				notSeder(p);
+		    			}
 		    		}
 		    		return true;
 	    	
