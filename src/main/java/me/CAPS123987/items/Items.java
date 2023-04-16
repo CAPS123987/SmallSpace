@@ -67,6 +67,24 @@ public class Items {
 	        LoreBuilder.powerBuffer(512)
 	    );
 	
+	public static final SlimefunItemStack SPACE_UOTPUT = new SlimefunItemStack("SPACE_UOTPUT",
+	        Material.WHITE_WOOL,
+	        "SPACE_UOTPUT",
+	        "",
+	        LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
+	        LoreBuilder.powerPerSecond(12),
+	        LoreBuilder.powerBuffer(512)
+	    );
+	
+	public static final SlimefunItemStack SPACE_INPUT = new SlimefunItemStack("SPACE_INPUT",
+			Material.WHITE_WOOL,
+	        "SPACE_INPUT",
+	        "",
+	        LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
+	        LoreBuilder.powerPerSecond(12),
+	        LoreBuilder.powerBuffer(512)
+	    );
+	
 	public static final ItemStack[] recipe_SPACE_STABILIZER= {
 			SlimefunItems.BLISTERING_INGOT,SlimefunItems.ELECTRO_MAGNET,SlimefunItems.BLISTERING_INGOT,
 			SlimefunItems.LEAD_INGOT,SlimefunItems.NUCLEAR_REACTOR,SlimefunItems.LEAD_INGOT,
@@ -96,6 +114,14 @@ public class Items {
 			SlimefunItems.STEEL_PLATE,Items.SPACE_STABILIZER,SlimefunItems.STEEL_PLATE,
 			SlimefunItems.REINFORCED_PLATE,SlimefunItems.ELECTRO_MAGNET,SlimefunItems.BLISTERING_INGOT
 	};
+	
+	public static final ItemStack[] recipe_BLOCK_ASSIGNER= {
+			SlimefunItems.ELECTRO_MAGNET,SlimefunItems.ELECTRO_MAGNET,SlimefunItems.ELECTRO_MAGNET,
+			SlimefunItems.STEEL_PLATE,null,SlimefunItems.STEEL_PLATE,
+			SlimefunItems.ELECTRO_MAGNET,SlimefunItems.ELECTRIC_MOTOR,SlimefunItems.ELECTRO_MAGNET
+	};
+	
+	
 	
 	public static final ItemStack[] recipe_TEST_ITEM= {
 			null,null,null,

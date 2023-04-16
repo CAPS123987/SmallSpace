@@ -51,7 +51,7 @@ EnergyNetComponent{
     
     
 	public BlockAssigner() {
-		super(Items.smallSpace, Items.BLOCK_ASSIGNER, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_TEST_ITEM);
+		super(Items.smallSpace, Items.BLOCK_ASSIGNER, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_BLOCK_ASSIGNER);
 		
 		createPreset(this, this::constructMenu);
 		addItemHandler(onBreak());
