@@ -22,6 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -31,6 +32,8 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
+import me.CAPS123987.cargo.SpaceInterface;
+import me.CAPS123987.cargo.SpaceOutput;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.implementation.Teleporterss;
@@ -38,6 +41,7 @@ import me.CAPS123987.items.Items;
 import me.CAPS123987.machines.BlockAssigner;
 import me.CAPS123987.tabCompleater.*;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 
 public class SmallSpace extends JavaPlugin implements SlimefunAddon {
@@ -69,6 +73,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         new SizedBlock(4,Items.SIZED_BLOCK4,Items.recipe_SIZED_BLOCK4).register(this);
         new Teleporterss().register(this);
         new BlockAssigner().register(this);
+        
+        new SpaceInterface().register(this);
+        new SpaceOutput().register(this);
         
         
     }
@@ -283,6 +290,7 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
 		
 		
     }
+    
     
     
     public boolean groupRemove(CommandSender p, String[] args) {

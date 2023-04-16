@@ -7,6 +7,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import me.CAPS123987.cargo.SpaceInterface;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 public class Calculator {
 	public static Location getLoc(String id) {
@@ -70,6 +78,48 @@ public class Calculator {
 			
 		}
 		return options;
+		
+	}
+	public static void SfRemove(Block b,List<Vector> blocks) {
+    	
+    	for (Vector entry : blocks) {
+			
+			Location loc = b.getLocation().add(entry);
+			
+			if(BlockStorage.hasBlockInfo(loc)) {
+				SlimefunItem item1 = BlockStorage.check(loc);
+				
+				if ((item1 instanceof SpaceInterface)) {
+					
+					Object[] colec = item1.getDrops().toArray();
+					
+					BlockMenu menu = BlockStorage.getInventory(loc);
+					menu.dropItems(loc, SpaceInterface.inputs);
+					menu.dropItems(loc, SpaceInterface.outputs);
+					
+					loc.getBlock().getWorld().dropItemNaturally(loc, (ItemStack) colec[0]);
+					loc.getBlock().setType(Material.AIR);;
+
+					BlockStorage.clearBlockInfo(loc);
+				}
+				
+			}
+			
+		}
+    }
+	public static Vector fac(String s) {
+		switch(s){
+			case "SOUTH":
+				return new Vector(0,0,-1);
+			case "EAST":
+				return new Vector(-1,0,0);
+			case "NORTH":
+				return new Vector(0,0,1);
+			case "WEST":
+				return new Vector(1,0,0);
+			default:
+				return null;
+		}
 		
 	}
 }

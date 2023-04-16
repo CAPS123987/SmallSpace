@@ -1,7 +1,9 @@
 package me.CAPS123987.implementation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -15,6 +17,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.api.events.BlockPlacerPlaceEvent;
@@ -27,12 +30,15 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.multiblocks.EnhancedCraftingTable;
+import me.CAPS123987.cargo.SpaceInterface;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.items.Items;
 import me.CAPS123987.smallspace.Calculator;
+import me.CAPS123987.smallspace.SmallSpace;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
@@ -43,9 +49,18 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements EnergyNetComponent{
 	private final int Tier;
 	private int decrement = 0;
+	public List<Vector> blocks = new ArrayList<>();;
+	
+	
 	public SizedBlock(int i, SlimefunItemStack item, ItemStack[] recipe) {
 		super(Items.smallSpace, item, RecipeType.ENHANCED_CRAFTING_TABLE,
 				recipe);
+		blocks.add(new Vector(1,0,0));
+		blocks.add(new Vector(-1,0,0));
+		blocks.add(new Vector(0,0,1));
+		blocks.add(new Vector(0,0,-1));
+		blocks.add(new Vector(0,1,0));
+		blocks.add(new Vector(0,-1,0));
 		addItemHandler(BlockPlaceHandler());
 		addItemHandler(BlockBreakHandler());
 		addItemHandler(BlockUseHandler());
@@ -178,6 +193,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 						return;
 					}
 				}
+				//break space interface
+				Calculator.SfRemove(b,blocks);
 				
 				//drop item with custom lore
 				ItemStack item2 =SizedBlock.this.getItem().clone();
