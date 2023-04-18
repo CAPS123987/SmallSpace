@@ -122,4 +122,34 @@ public class Calculator {
 		}
 		
 	}
+	public static String side(Vector v) {
+		switch(v.toString()){
+			case "0.0,0.0,-1.0":
+				return "SOUTH";
+			case "-1.0,0.0,0.0":
+				return "EAST";
+			case "0.0,0.0,1.0":
+				return "NORTH";
+			case "1.0,0.0,0.0":
+				return "WEST";
+			default:
+				return null;
+		}
+		
+	}
+	public static int size(String s) {
+		int i = Integer.parseInt(s.replaceAll("[^0-9]", ""));
+		switch(i) {
+			case 1:
+				return 3;
+			case 2:
+				return 6;
+			case 3:
+				return 9;
+			case 4:
+				return 12;
+			default:
+				return 0;
+		}
+	}
 }

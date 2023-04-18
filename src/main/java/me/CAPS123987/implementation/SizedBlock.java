@@ -10,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -196,6 +198,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				//break space interface
 				Calculator.SfRemove(b,blocks);
 				
+				e.getBlock().getWorld().setChunkForceLoaded(e.getBlock().getLocation().getChunk().getX(), e.getBlock().getLocation().getChunk().getZ(), false);
+				
 				//drop item with custom lore
 				ItemStack item2 =SizedBlock.this.getItem().clone();
 				e.setDropItems(false);
@@ -220,6 +224,7 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 
 			@Override
 			public void onPlayerPlace(BlockPlaceEvent e) {
+				e.getBlock().getWorld().setChunkForceLoaded(e.getBlock().getLocation().getChunk().getX(), e.getBlock().getLocation().getChunk().getZ(), true);
 				// TODO Auto-generated method stub
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
 				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {
@@ -259,9 +264,34 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
                 }
 	        	
 	        	
+	        	
 	        	if(getTier()*256<=getCharge(b.getLocation())) {
 	        		removeCharge(b.getLocation(), getTier()*256);
+	        		return;
 	        	}
+	        	
+	        	
+	        	int size = Calculator.size(BlockStorage.getLocationInfo(b.getLocation(),"Tier"));
+	        	Location loc = Calculator.getLoc(BlockStorage.getLocationInfo(b.getLocation(),"name"))	;
+	        	Vector v = new Vector(size/2,size/2,size/2);
+	        	Location loc2 = loc.add(v);
+	        	
+	        	
+	        	
+	        	Collection<Entity> Entity = Bukkit.getWorld("SmallSpace").getNearbyEntities(loc2, size/2, size/2, size/2);
+	        	if(Entity.isEmpty()) {
+	        		return;
+	        	}
+	        	for(Entity e : Entity) {
+	        		if(e instanceof Player) {
+	        			Player p = (Player) e;
+	        			p.sendMessage(ChatColor.MAGIC+"III"+ChatColor.RESET+ChatColor.DARK_RED+"ERROR"+ChatColor.RESET+ChatColor.MAGIC+"III"+ChatColor.RESET+ChatColor.WHITE+" NO ENERGY");
+	        			p.setHealth(0.0);
+	        			
+	        		}
+	        	}
+	        	
+	        	
 	        }
 
 			@Override

@@ -2,6 +2,7 @@ package me.CAPS123987.cargo;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -27,6 +28,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.items.Items;
 import me.CAPS123987.smallspace.Calculator;
 import me.CAPS123987.smallspace.ETInventoryBlock;
@@ -88,23 +90,68 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 
 			@Override
 			public void onPlayerPlace(BlockPlaceEvent e) {
-				Block b = e.getBlock();
-				Player p = e.getPlayer();
+				Block b1 = e.getBlock();
 				
-				if(!b.getType().equals(Material.PLAYER_WALL_HEAD)) {
-					BlockStorage.clearBlockInfo(b);
+				if(!b1.getType().equals(Material.PLAYER_WALL_HEAD)) {
+					BlockStorage.clearBlockInfo(b1);
 					e.setCancelled(true);
 				}
-				Directional bmeta = (Directional) b.getBlockData();
+				Directional bmeta = (Directional) b1.getBlockData();
 				Vector v = Calculator.fac(bmeta.getFacing().toString()) ;
-				Location loc = b.getLocation().add(v);
+				Vector v1 = Calculator.fac(bmeta.getFacing().toString()) ;
+				Location loc = b1.getLocation().add(v);
 				
-				p.sendMessage(v.toString()+" "+ loc.getBlock().getType().toString());
+				SlimefunItem item = BlockStorage.check(loc);
+				Block sizBlo = loc.getBlock();
 				
+				if(!(item instanceof SizedBlock)) {
+					BlockStorage.clearBlockInfo(b1);
+					e.setCancelled(true);
+				}
+				e.getBlock().getWorld().setChunkForceLoaded(b1.getLocation().getChunk().getX(), b1.getLocation().getChunk().getZ(), true);
+				String Tier = BlockStorage.getLocationInfo(sizBlo.getLocation(),"Tier");
+				String id = BlockStorage.getLocationInfo(sizBlo.getLocation(),"name");
+				
+				Location in = inloc(Tier, id, v);
+				Location out = outloc(Tier, id, v1);
+				
+				in.getBlock().setType(Material.STONE);
+				out.getBlock().setType(Material.MAGMA_BLOCK);
+				
+				BlockStorage.store(in.getBlock(), "IMPORT_BUS");
+				BlockStorage.store(out.getBlock(), "EXPORT_BUS");
 				
 			}
 			
 		};
+	}
+	
+	public static Location inloc(String Tier, String id, Vector v) {
+		
+		Location corner = Calculator.getLoc(id);
+		int size = Calculator.size(Tier);
+		
+		Location center = corner.add((size/2)-0.5, (size/2)-0.5, (size/2)-0.5);
+		
+		Vector blo = v.multiply((size/2)+0.5);
+		
+		center.add(blo);
+		
+		return center;	
+	}
+	public static Location outloc(String Tier, String id, Vector v) {
+		
+		Location corner = Calculator.getLoc(id);
+		int size = Calculator.size(Tier);
+
+		Location center = corner.add((size/2)+0.0, (size/2)+0.0, (size/2)+0.0);
+		
+		Vector blo = v.multiply((size/2)+0.5);
+		
+		center.add(blo);
+		
+		
+		return center;	
 	}
 	
 	
@@ -113,13 +160,47 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 
             @Override
             public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+            	
                 Block b = e.getBlock();
                 BlockMenu inv = BlockStorage.getInventory(b);
 
+                e.getBlock().getWorld().setChunkForceLoaded(b.getLocation().getChunk().getX(), b.getLocation().getChunk().getZ(), false);
+                
                 if (inv != null) {
                     inv.dropItems(b.getLocation(), getInputSlots());
                     inv.dropItems(b.getLocation(), getOutputSlots());
                 }
+				
+                
+				Directional bmeta = (Directional) b.getBlockData();
+				Vector v = Calculator.fac(bmeta.getFacing().toString()) ;
+				Vector v1 = Calculator.fac(bmeta.getFacing().toString()) ;
+				Location loc = b.getLocation().add(v);
+				
+				Block sizBlo = loc.getBlock();
+				
+				e.getBlock().getWorld().setChunkForceLoaded(b.getLocation().getChunk().getX(), b.getLocation().getChunk().getZ(), false);
+				String Tier = BlockStorage.getLocationInfo(sizBlo.getLocation(),"Tier");
+				String id = BlockStorage.getLocationInfo(sizBlo.getLocation(),"name");
+				
+				Location in = inloc(Tier, id, v);
+				Location out = outloc(Tier, id, v1);
+				
+				
+				BlockMenu menu1 = BlockStorage.getInventory(in.getBlock());
+				BlockMenu menu2 = BlockStorage.getInventory(out.getBlock());
+				
+				
+				
+				menu1.dropItems(in, ImportBus.output);
+				menu2.dropItems(out, ExportBus.input);
+				
+				in.getBlock().setType(Material.BEDROCK);
+				out.getBlock().setType(Material.BEDROCK);
+				
+				BlockStorage.clearBlockInfo(in.getBlock());
+				BlockStorage.clearBlockInfo(out.getBlock());
+                
             }
         };
     }

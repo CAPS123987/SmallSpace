@@ -33,7 +33,8 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import me.CAPS123987.cargo.SpaceInterface;
-import me.CAPS123987.cargo.SpaceOutput;
+import me.CAPS123987.cargo.ExportBus;
+import me.CAPS123987.cargo.ImportBus;
 import me.CAPS123987.dimension.SmallSpaceDim;
 import me.CAPS123987.implementation.SizedBlock;
 import me.CAPS123987.implementation.Teleporterss;
@@ -75,7 +76,8 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         new BlockAssigner().register(this);
         
         new SpaceInterface().register(this);
-        new SpaceOutput().register(this);
+        new ImportBus().register(this);
+        new ExportBus().register(this);
         
         
     }

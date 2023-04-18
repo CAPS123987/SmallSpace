@@ -67,14 +67,17 @@ public class Items {
 	        LoreBuilder.powerBuffer(512)
 	    );
 	
-	public static final SlimefunItemStack SPACE_OUTPUT = new SlimefunItemStack("SPACE_OUTPUT",
-	        Material.WHITE_WOOL,
-	        "SPACE_OUTPUT",
-	        "",
-	        LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
-	        LoreBuilder.powerPerSecond(12),
-	        LoreBuilder.powerBuffer(512)
+	public static final SlimefunItemStack IMPORT_BUS = new SlimefunItemStack("IMPORT_BUS",
+	        Material.STONE,
+	        "IMPORT_BUS",
+	        ""
 	    );
+	public static final SlimefunItemStack EXPORT_BUS = new SlimefunItemStack("EXPORT_BUS",
+	        Material.MAGMA_BLOCK,
+	        "EXPORT_BUS",
+	        ""
+	    );
+	
 	
 	public static final SlimefunItemStack SPACE_INTERFACE = new SlimefunItemStack("SPACE_INTERFACE",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzczZThiZDNjNDNjNDUxNGM3NjQ4MWNhMWRhZjU1MTQ5ZGZjOTNiZDFiY2ZhOGFiOTQzN2I5ZjdlYjMzOTJkOSJ9fX0=",
