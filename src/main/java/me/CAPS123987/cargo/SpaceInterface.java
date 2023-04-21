@@ -48,7 +48,7 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 	public final int[] outputBorder = {14,23,32};
 	
 	public SpaceInterface() {
-		super(Items.smallSpace, Items.SPACE_INTERFACE, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_TEST_ITEM);
+		super(Items.smallSpace, Items.SPACE_INTERFACE, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_SPACE_INTERFACE);
 		createPreset(this, this::constructMenu);
 		addItemHandler(onBreak(), BlockPlaceHandler());
 		// TODO Auto-generated constructor stub
@@ -121,6 +121,17 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 				BlockStorage.store(in.getBlock(), "IMPORT_BUS");
 				BlockStorage.store(out.getBlock(), "EXPORT_BUS");
 				
+				BlockStorage.addBlockInfo(in.getBlock(), "x", String.valueOf(b1.getLocation().getX()));
+				BlockStorage.addBlockInfo(in.getBlock(), "y", String.valueOf(b1.getLocation().getY()));
+				BlockStorage.addBlockInfo(in.getBlock(), "z", String.valueOf(b1.getLocation().getZ()));
+				BlockStorage.addBlockInfo(in.getBlock(), "world", String.valueOf(b1.getLocation().getWorld().getName()));
+				
+				
+				BlockStorage.addBlockInfo(out.getBlock(), "x", String.valueOf(b1.getLocation().getX()));
+				BlockStorage.addBlockInfo(out.getBlock(), "y", String.valueOf(b1.getLocation().getY()));
+				BlockStorage.addBlockInfo(out.getBlock(), "z", String.valueOf(b1.getLocation().getZ()));
+				BlockStorage.addBlockInfo(out.getBlock(), "world", String.valueOf(b1.getLocation().getWorld().getName()));
+				
 			}
 			
 		};
@@ -170,36 +181,9 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
                     inv.dropItems(b.getLocation(), getInputSlots());
                     inv.dropItems(b.getLocation(), getOutputSlots());
                 }
-				
+                delBus(b);
                 
-				Directional bmeta = (Directional) b.getBlockData();
-				Vector v = Calculator.fac(bmeta.getFacing().toString()) ;
-				Vector v1 = Calculator.fac(bmeta.getFacing().toString()) ;
-				Location loc = b.getLocation().add(v);
 				
-				Block sizBlo = loc.getBlock();
-				
-				e.getBlock().getWorld().setChunkForceLoaded(b.getLocation().getChunk().getX(), b.getLocation().getChunk().getZ(), false);
-				String Tier = BlockStorage.getLocationInfo(sizBlo.getLocation(),"Tier");
-				String id = BlockStorage.getLocationInfo(sizBlo.getLocation(),"name");
-				
-				Location in = inloc(Tier, id, v);
-				Location out = outloc(Tier, id, v1);
-				
-				
-				BlockMenu menu1 = BlockStorage.getInventory(in.getBlock());
-				BlockMenu menu2 = BlockStorage.getInventory(out.getBlock());
-				
-				
-				
-				menu1.dropItems(in, ImportBus.output);
-				menu2.dropItems(out, ExportBus.input);
-				
-				in.getBlock().setType(Material.BEDROCK);
-				out.getBlock().setType(Material.BEDROCK);
-				
-				BlockStorage.clearBlockInfo(in.getBlock());
-				BlockStorage.clearBlockInfo(out.getBlock());
                 
             }
         };
@@ -207,7 +191,36 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 	
 	
 	
-	
+	public static void delBus(Block b) {
+		Directional bmeta = (Directional) b.getBlockData();
+		Vector v = Calculator.fac(bmeta.getFacing().toString()) ;
+		Vector v1 = Calculator.fac(bmeta.getFacing().toString()) ;
+		Location loc = b.getLocation().add(v);
+		
+		Block sizBlo = loc.getBlock();
+		
+		b.getWorld().setChunkForceLoaded(b.getLocation().getChunk().getX(), b.getLocation().getChunk().getZ(), false);
+		String Tier = BlockStorage.getLocationInfo(sizBlo.getLocation(),"Tier");
+		String id = BlockStorage.getLocationInfo(sizBlo.getLocation(),"name");
+		
+		Location in = inloc(Tier, id, v);
+		Location out = outloc(Tier, id, v1);
+		
+		
+		BlockMenu menu1 = BlockStorage.getInventory(in.getBlock());
+		BlockMenu menu2 = BlockStorage.getInventory(out.getBlock());
+		
+		
+		
+		menu1.dropItems(in, ImportBus.output);
+		menu2.dropItems(out, ExportBus.input);
+		
+		in.getBlock().setType(Material.BEDROCK);
+		out.getBlock().setType(Material.BEDROCK);
+		
+		BlockStorage.clearBlockInfo(in.getBlock());
+		BlockStorage.clearBlockInfo(out.getBlock());
+	}
 	
 	
 	

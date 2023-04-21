@@ -76,8 +76,13 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
         new BlockAssigner().register(this);
         
         new SpaceInterface().register(this);
-        new ImportBus().register(this);
-        new ExportBus().register(this);
+        ImportBus ibus = new ImportBus();
+        ibus.register(this);
+        ibus.setHidden(true);
+
+        ExportBus ebus = new ExportBus();
+        ebus.register(this);
+        ebus.setHidden(true);
         
         
     }

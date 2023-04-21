@@ -26,7 +26,7 @@ public class Teleporterss extends SlimefunItem{
 
 	public Teleporterss() {
 		
-		super(Items.smallSpace, Items.TELEPORT, RecipeType.ENHANCED_CRAFTING_TABLE, null);
+		super(Items.smallSpace, Items.TELEPORT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[0]);
 		// TODO Auto-generated constructor stub
 		this.setHidden(true);
 		addItemHandler(BlockUseHandler());

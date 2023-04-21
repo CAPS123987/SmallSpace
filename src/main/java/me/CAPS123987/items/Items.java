@@ -81,8 +81,8 @@ public class Items {
 	
 	public static final SlimefunItemStack SPACE_INTERFACE = new SlimefunItemStack("SPACE_INTERFACE",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzczZThiZDNjNDNjNDUxNGM3NjQ4MWNhMWRhZjU1MTQ5ZGZjOTNiZDFiY2ZhOGFiOTQzN2I5ZjdlYjMzOTJkOSJ9fX0=",
-	        "SPACE_INTERFACE",
-	        "",
+	        "&rSpace Interface",
+	        "&7(way to push items in and out of the space)",
 	        LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
 	        LoreBuilder.powerPerSecond(12),
 	        LoreBuilder.powerBuffer(512)
@@ -92,6 +92,12 @@ public class Items {
 			SlimefunItems.BLISTERING_INGOT,SlimefunItems.ELECTRO_MAGNET,SlimefunItems.BLISTERING_INGOT,
 			SlimefunItems.LEAD_INGOT,SlimefunItems.NUCLEAR_REACTOR,SlimefunItems.LEAD_INGOT,
 			SlimefunItems.ELECTRO_MAGNET,SlimefunItems.LEAD_INGOT,SlimefunItems.ELECTRO_MAGNET
+	};
+	
+	public static final ItemStack[] recipe_SPACE_INTERFACE= {
+			null,SlimefunItems.ELECTRO_MAGNET,null,
+			SlimefunItems.LEAD_INGOT,SlimefunItems.CARGO_OUTPUT_NODE_2,SlimefunItems.LEAD_INGOT,
+			null,SlimefunItems.LEAD_INGOT,null
 	};
 	
 	public static final ItemStack[] recipe_SIZED_BLOCK1= {

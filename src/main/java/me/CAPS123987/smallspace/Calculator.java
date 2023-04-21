@@ -91,6 +91,8 @@ public class Calculator {
 				
 				if ((item1 instanceof SpaceInterface)) {
 					
+					SpaceInterface.delBus(loc.getBlock());
+					
 					Object[] colec = item1.getDrops().toArray();
 					
 					BlockMenu menu = BlockStorage.getInventory(loc);

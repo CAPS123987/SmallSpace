@@ -2,6 +2,8 @@ package me.CAPS123987.cargo;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -25,6 +27,8 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 
 public class ImportBus extends SimpleSlimefunItem<BlockTicker> implements ETInventoryBlock{
@@ -35,7 +39,8 @@ public class ImportBus extends SimpleSlimefunItem<BlockTicker> implements ETInve
 	int[] input = {};
 	
 	public ImportBus() {
-		super(Items.smallSpace, Items.IMPORT_BUS, RecipeType.ENHANCED_CRAFTING_TABLE, Items.recipe_TEST_ITEM);
+		super(Items.smallSpace, Items.IMPORT_BUS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[0]);
+		super.setHidden(true);
 		this.setHidden(true);
 		addItemHandler(onBreak());
 		createPreset(this, this::constructMenu);
@@ -68,6 +73,27 @@ public class ImportBus extends SimpleSlimefunItem<BlockTicker> implements ETInve
 			@Override
 			public void tick(Block b, SlimefunItem item, Config data) {
 				// TODO Auto-generated method stub
+				String x = BlockStorage.getLocationInfo(b.getLocation(),"x");
+				String y = BlockStorage.getLocationInfo(b.getLocation(),"y");
+				String z = BlockStorage.getLocationInfo(b.getLocation(),"z");
+				String world = BlockStorage.getLocationInfo(b.getLocation(),"world");
+				Location l = new Location(Bukkit.getWorld(world),Double.valueOf(x),Double.valueOf(y),Double.valueOf(z));
+				
+				BlockMenu to = BlockStorage.getInventory(b);
+				BlockMenu from = BlockStorage.getInventory(l);
+				
+				for(int i : SpaceInterface.inputs) {
+					ItemStack it = from.getItemInSlot(i);
+					if(!(it == null || it == new ItemStack(Material.AIR))){
+						ItemStack over = to.pushItem(it, output); 
+						if(over == null) {
+							from.replaceExistingItem(i, new ItemStack(Material.AIR));
+							}
+							
+						}
+					
+				}
+				
 				
 			}
 		};
