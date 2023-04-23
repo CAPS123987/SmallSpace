@@ -39,7 +39,7 @@ public class ImportBus extends SimpleSlimefunItem<BlockTicker> implements ETInve
 	int[] input = {};
 	
 	public ImportBus() {
-		super(Items.smallSpace, Items.IMPORT_BUS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[0]);
+		super(Items.smallSpace, Items.IMPORT_BUS, RecipeType.NULL, new ItemStack[0]);
 		super.setHidden(true);
 		this.setHidden(true);
 		addItemHandler(onBreak());

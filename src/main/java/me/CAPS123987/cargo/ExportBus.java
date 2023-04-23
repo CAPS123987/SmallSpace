@@ -39,7 +39,7 @@ public class ExportBus extends SimpleSlimefunItem<BlockTicker> implements ETInve
 	static final int[] input = {10,11,12,13,14,15,16,19,20,21,22,23,24,25,28,29,30,31,32,33,34};
 	
 	public ExportBus() {
-		super(Items.smallSpace, Items.EXPORT_BUS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[0]);
+		super(Items.smallSpace, Items.EXPORT_BUS, RecipeType.NULL, new ItemStack[0]);
 		this.setHidden(true);
 		addItemHandler(onBreak());
 		createPreset(this, this::constructMenu);
