@@ -51,9 +51,16 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     @Override
     public void onEnable() {
     	
-        if (cfg.getBoolean("options.auto-update")) {
+        if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
         	
-        	GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, this.getFile(), "CAPS123987/SmallSpace/master");
+        	GitHubBuildsUpdater
+        	updater 
+        	= 
+        	new GitHubBuildsUpdater(
+        			this
+        			, this.getFile()
+        			, "CAPS123987/SmallSpace/master");
+        	
         	updater.start();
         	
         }
