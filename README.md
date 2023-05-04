@@ -11,7 +11,7 @@ This block is the core of this addon - you can access your space by rightclickin
 
 ### How to use Sized Block
 Steps:
-1.  Put [Sized Block](https://github.com/CAPS123987/SmallSpace#sized-block) in [Block Assigner](https://github.com/CAPS123987/SmallSpace/edit/master/README.md#block-assigner)
+1.  Put [Sized Block](https://github.com/CAPS123987/SmallSpace#sized-block) in [Block Assigner](https://github.com/CAPS123987/SmallSpace#block-assigner)
 2.  Place [Sized Block](https://github.com/CAPS123987/SmallSpace#sized-block) to energy network and right click it
 3.  Build Anythink you want
 4.  For additional function you can go back and shift+rightclick with [Small Space Interface](https://github.com/CAPS123987/SmallSpace#small-space-interface) on [Sized Block](https://github.com/CAPS123987/SmallSpace#sized-block) to have acces to import/export busses
