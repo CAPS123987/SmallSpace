@@ -1,9 +1,10 @@
 # SmallSpace Addon
 This addon allows you to have more space in one block
 
-(testing)
-[![Build Status](https://thebusybiscuit.github.io/builds/ProfElements/DynaTech/master/badge.svg)](##https://thebusybiscuit.github.io/builds/CAPS123987)
+## Show Case
 
+## Download
+[![Build Status](https://thebusybiscuit.github.io/builds/Sefiraat/Cultivation/main/badge.svg)](https://thebusybiscuit.github.io/builds/CAPS123987/SmallSpace/master/)
 ## Thanks!
 
 A big thanks goes to https://minecraft-heads.com who kindly gave their permission to utilise heads they've procured within our addon.
