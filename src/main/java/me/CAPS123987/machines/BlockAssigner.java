@@ -41,7 +41,7 @@ public class BlockAssigner extends SimpleSlimefunItem<BlockTicker> implements ET
 EnergyNetComponent{
 	private static final int ENERGY_CONSUMPTION = 512;
 	private final int[] border = {0, 1, 2, 3, 5, 4, 6, 7, 8, 9, 18, 27, 26,17,
-	        31, 36, 37, 38, 39, 40, 41, 42, 43, 44, 22};
+	        31,35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 22};
 	private final int[] inputBorder = {19,21,10,11,12,28,29,30};
     private final int[] outputBorder = {14, 15, 16, 25, 23, 32, 33, 34};
     private static final int statusSlot = 22;
