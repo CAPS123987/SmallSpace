@@ -229,6 +229,8 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 				BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Tier", String.valueOf(getTier())) ;
 				if(e.getItemInHand().getItemMeta().getLore().get(0).equals("§4Put to Block Assigner")) {
 					e.setCancelled(true);
+					BlockStorage.clearBlockInfo(e.getBlock());
+					e.getPlayer().sendMessage("You need to put this block to Block Block Assigner");
 					return;
 					}
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Players", "");
