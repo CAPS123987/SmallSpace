@@ -20,6 +20,7 @@ public class TabC implements TabCompleter{
 		List<String> options1 = new ArrayList<>();
 		options1.add("memberAdd");
 		options1.add("memberRemove");
+		options1.add("help");
 		
 		//only for admins
 		

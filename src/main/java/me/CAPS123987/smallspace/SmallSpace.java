@@ -134,7 +134,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     	
     	
     	switch(args[0]) {
-    	
+    		case "help":
+    			help(p);
+    			break;
 	    	case "tptoId":
 	    		if (!p.hasPermission("SmallSpace.admin")) {
 	        		p.sendMessage(ChatColor.RED+"No permition");
@@ -264,7 +266,16 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     public void notSeder(CommandSender p) {
     	p.sendMessage("You must by Player to use this command");
     }
-    
+    public void help(CommandSender p) {
+    	p.sendMessage(ChatColor.GOLD+"memberAdd: "+ChatColor.WHITE+"This command adds Players to your Space(to use you need to look on Sized Block)");
+    	p.sendMessage(ChatColor.GOLD+"memberRemove: "+ChatColor.WHITE+"This command removes Players to your Space(to use you need to look on Sized Block)");
+    	p.sendMessage(ChatColor.GOLD+"help: "+ChatColor.WHITE+"This command displaies help list");
+    	p.sendMessage(ChatColor.GOLD+"tptoId: "+ChatColor.WHITE+"This command teleports you to Space with given id");
+    	p.sendMessage(ChatColor.GOLD+"blockId: "+ChatColor.WHITE+"This command blocks Space with given id");
+    	p.sendMessage(ChatColor.GOLD+"unblockId: "+ChatColor.WHITE+"This command unblocks Space with given id");
+    	p.sendMessage(ChatColor.GOLD+"teleportRemove: "+ChatColor.WHITE+"This command removes teleporter block(to use you need to look on TELEPORTER block)");
+    	
+    }
     
     
     public boolean groupAdd(CommandSender p, String[] args) {
