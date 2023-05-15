@@ -96,9 +96,15 @@ public class SpaceInterface extends SimpleSlimefunItem<BlockTicker> implements E
 					BlockStorage.clearBlockInfo(b1);
 					e.setCancelled(true);
 				}
-				Directional bmeta = (Directional) b1.getBlockData();
-				Vector v = Calculator.fac(bmeta.getFacing().toString()) ;
-				Vector v1 = Calculator.fac(bmeta.getFacing().toString()) ;
+				Vector v = null;
+				Vector v1 = null;
+				try {
+					Directional bmeta = (Directional) b1.getBlockData();
+					v = Calculator.fac(bmeta.getFacing().toString()) ;
+					v1 = Calculator.fac(bmeta.getFacing().toString()) ;
+				}catch(Exception e1) {
+					
+				}
 				Location loc = b1.getLocation().add(v);
 				
 				SlimefunItem item = BlockStorage.check(loc);
