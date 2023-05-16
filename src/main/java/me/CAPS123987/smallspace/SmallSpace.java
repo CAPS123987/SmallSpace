@@ -18,11 +18,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
+import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -45,11 +49,13 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 
-public class SmallSpace extends JavaPlugin implements SlimefunAddon {
+public class SmallSpace extends JavaPlugin implements SlimefunAddon, Listener {
 	public static SmallSpace instance;
 	Config cfg = new Config(this);
     @Override
     public void onEnable() {
+    	
+    	this.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
     	
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
         	
@@ -120,6 +126,16 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon {
     }
     public static SmallSpace getInstance() {
         return instance;
+    }
+    
+    @EventHandler
+    public void blockPlace(BlockBreakEvent e) {
+    	Material m = e.getBlock().getType();
+    	String name = e.getBlock().getWorld().getName();
+    	if(m==Material.BEDROCK&&name.equals("SmallSpace")) {
+    		e.setCancelled(true);
+    	}
+    	
     }
     
     /*
