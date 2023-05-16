@@ -9,6 +9,10 @@ This block is the core of this addon - you can access your space by rightclickin
                                      - you can add [Small Space Interface](https://github.com/CAPS123987/SmallSpace#small-space-interface) to access import/export busses
 [How to use](https://github.com/CAPS123987/SmallSpace#how-to-use-sized-block)
 
+
+or Tutorial:
+[![Tutorial](https://img.youtube.com/vi/5LTrYCd4nIY/0.jpg)](https://www.youtube.com/watch?v=5LTrYCd4nIY)
+
 <p align="center"><img alt="image" src="https://user-images.githubusercontent.com/87692752/236265631-a567832a-84bb-4d10-b0a4-26d4f912b883.png"></p>
 <p align="center"><img alt="image" src="https://user-images.githubusercontent.com/87692752/236265512-962f7c97-5d6b-4e88-a567-eed3fc1f2e80.png"></p>
 
