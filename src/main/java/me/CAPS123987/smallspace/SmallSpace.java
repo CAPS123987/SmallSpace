@@ -137,6 +137,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon, Listener {
     	if(tp==TeleportCause.CHORUS_FRUIT&&world.equals("SmallSpace")) {
     		e.setCancelled(true);
     	}
+    	if(tp==TeleportCause.ENDER_PEARL&&world.equals("SmallSpace")) {
+    		e.setCancelled(true);
+    	}
     }
     @EventHandler
     public void blockPlace(BlockBreakEvent e) {
