@@ -142,10 +142,10 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon, Listener {
     	}
     }
     @EventHandler
-    public void blockPlace(BlockBreakEvent e) {
+    public void blockBreak(BlockBreakEvent e) {
     	Material m = e.getBlock().getType();
     	String name = e.getBlock().getWorld().getName();
-    	if(m==Material.BEDROCK&&name.equals("SmallSpace")) {
+    	if(m==Material.BEDROCK&&name.equals("SmallSpace")&&!e.getPlayer().hasPermission("SmallSpace.admin")) {
     		e.setCancelled(true);
     	}
     	
