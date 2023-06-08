@@ -1,3 +1,5 @@
 options:
   auto-update: true
 max: 1 #DO NOT CHANGE
+go_to_minus_on_y: true #if true then you must use 1.18.2+
+radius: 29999983 #radius where space can generate WARNING! use smaller than world border is (about 20 blocks)

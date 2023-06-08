@@ -236,6 +236,20 @@ public class SizedBlock extends SimpleSlimefunItem<BlockTicker> implements Energ
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "Players", "");
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "name", e.getItemInHand().getItemMeta().getLore().get(0));
 					BlockStorage.addBlockInfo(e.getBlock().getLocation(), "owner", e.getPlayer().getName());
+					
+					Location loc = Calculator.getLoc(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "name"));
+					World world = Bukkit.getWorld("SmallSpace");
+					Location newloc3 = new Location(world,loc.getX()+0.5,loc.getY()-1,loc.getZ()+0.5);
+					world.getBlockAt(newloc3).setType(Material.GOLD_BLOCK);
+					
+					BlockStorage.store(newloc3.getBlock(), "TELEPORT");
+					
+					BlockStorage.addBlockInfo(newloc3.getBlock(), "tpX",String.valueOf(e.getBlock().getLocation().getX()));
+					BlockStorage.addBlockInfo(newloc3.getBlock(), "tpY", String.valueOf(e.getBlock().getLocation().getY()));
+					BlockStorage.addBlockInfo(newloc3.getBlock(), "tpZ", String.valueOf(e.getBlock().getLocation().getZ()));
+					BlockStorage.addBlockInfo(newloc3.getBlock(), "world", String.valueOf(e.getBlock().getLocation().getWorld().getName()));
+					
+					
 				}
 			};
 	}

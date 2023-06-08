@@ -89,7 +89,6 @@ EnergyNetComponent{
 	        		item.setAmount(1);
 	        		item.setItemMeta(meta);
 	        		
-	        		
 	        		menu.pushItem(item,24);
 	        		//Calculator.setRegi(Calculator.getLoc(String.valueOf(max)),12.0);
 	        		menu.getItemInSlot(20).setAmount(menu.getItemInSlot(20).getAmount()-1);
@@ -111,7 +110,7 @@ EnergyNetComponent{
 	
 	
 	
-private void constructMenu(BlockMenuPreset preset) {
+	private void constructMenu(BlockMenuPreset preset) {
     	
     	
         for (int i : border) {

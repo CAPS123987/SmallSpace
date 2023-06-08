@@ -59,6 +59,9 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon, Listener {
     	
     	this.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
     	
+    	cfg.setHeader("#WARNING! Set radius smaller than border size(12 blocks+)");
+    	cfg.save();
+    	
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
         	
         	GitHubBuildsUpdater

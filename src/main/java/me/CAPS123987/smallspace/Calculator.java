@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -17,24 +18,34 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 public class Calculator {
+	static FileConfiguration cfg = SmallSpace.instance.getConfig();
+	
 	public static Location getLoc(String id) {
-		long x = -29999983;
-		long y = -63;
-		long z = -29999983;
+		
+		long x = -cfg.getLong("radius");
+		long y = 3;
+		int temp = 0;
+		int down = 240;
+		if(cfg.getBoolean("go_to_minus_on_y")){
+			y=-63;
+			temp = 62;
+			down=312;
+		}
+		long z = -cfg.getLong("radius");
 		long value = Integer.parseInt(id.replaceAll("[^0-9]", ""));
 		long tempcalc = value*24;
 		
-		y = tempcalc-62;
+		y = tempcalc-temp;
 		while(y>250) {
-			y = y-312;
+			y = y-down;
 			x = x + 32;
 		}
-		while(x>29999883) {
-			x = x-29999883;
+		while(x>cfg.getLong("radius")) {
+			x = x-cfg.getLong("radius");
 			z = z + 32;
 		}
-		while(z>29999883) {
-			z = z-29999883;
+		while(z>cfg.getLong("radius")) {
+			z = z-cfg.getLong("radius");
 			x = x + 32;
 		}
 		
