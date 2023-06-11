@@ -159,12 +159,7 @@ public class SmallSpace extends JavaPlugin implements SlimefunAddon, Listener {
      */
     @Override
     public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
-    	
-    	
-    	
-    	
-    	
-    	
+
     	switch(args[0]) {
     		case "help":
     			help(p);
